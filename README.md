@@ -4,11 +4,11 @@
 
 Hosted at: https://dry-cliffs-90706.herokuapp.com/
 
-Stack: 
- - NodeJS
- - Express framework
- - MongoDB
- - Javascript + bootstrap for design 
+Technology Stack: 
+ - NodeJS (https://nodejs.org/en/)
+ - Express framework (https://expressjs.com/)
+ - MongoDB (hosted on https://mlab.com/)
+ - Javascript + bootstrap styling
 
 
- ![Alt Text](login.gif)
+ ![Alt Text](login.gif)  ![Alt Text](addcourse.gif)
