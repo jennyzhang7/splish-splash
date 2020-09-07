@@ -4,15 +4,14 @@
 
 Hosted at: https://dry-cliffs-90706.herokuapp.com/
 
-###### Technology Stack: 
+## Technology Stack: 
  - NodeJS (https://nodejs.org/en/)
  - Express framework (https://expressjs.com/)
  - MongoDB (hosted on https://mlab.com/)
  - Javascript + bootstrap styling
  - sessions for login stored using https://www.npmjs.com/package/cookie-session
 
-###### Running the application: 
-Some basic Git commands are:
+## Running the application: 
 ```
 git clone https://github.com/jennyzhang7/splish-splash.git
 npm install
@@ -20,7 +19,7 @@ npm start
 ```
 (Note: API key for mlab is hidden)
 
-###### A tour
+## A tour
 Users can log in and search for their school
 
  ![Alt Text](login.gif)  
