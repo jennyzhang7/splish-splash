@@ -1,0 +1,225 @@
+body {
+    margin: 0;
+}
+
+/*    apply default font to everything except fa icons    */
+html *:not(.fa)
+{
+   font-family: Helvetica, arial, serif !important;
+}
+
+.container3 {
+    margin: auto;
+    padding: 0px;
+    /*flex-wrap: wrap;*/
+    display:flex;
+    width:90%;
+}
+@media only screen and (max-width: 900px) { 
+/* Some CSS rules */    
+    .container3 {
+        display: block;
+    }
+}
+.header {
+    height: 10em;
+    justify-content: center;
+    background-color:lightblue;
+    padding-left: 5%;
+    margin: 10px;
+    flex-basis: 100%;
+}
+.categories {
+    background-color: whitesmoke;
+    padding: 10px;
+    padding-left: 5%;
+    margin: 10px;
+    flex-basis: 50%;
+}
+.moreCategories {
+    background-color:whitesmoke;
+    padding: 10px;
+    padding-left: 5%;
+    margin: 10px;
+    flex-basis: 50%;
+}
+.addReview {
+    background-color: lightblue;
+    padding: 20px;
+    padding-left: 10%;
+    margin: 8.7%;
+    padding-left: 5%;
+    margin: 10px;
+    flex-basis: 100%;
+}
+
+/* text styling */
+h3 {
+    font-family: Helvetica, arial, serif;
+    font-size: 30px;
+}
+/* for stars */
+.checked {
+    color: orange;
+}
+/* for first block "Scored Categories" */
+button {
+    background-color: #242f96;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    width: 120px;
+    height: 40px;
+}
+        /*    this styles the review comments    */
+.erase {
+    width: 70%;
+    padding: 10px 10px;
+    text-align: left;
+    background-color: #ffe6b3;
+    margin-top: 10px;
+    margin-left: 15px;
+}
+
+.more {
+    width: 70%;
+    padding: 10px 10px;
+    text-align: left;
+    background-color: #ffe6b3;
+    margin-top: 10px;
+    margin-left: 15px;
+}
+
+.textbox {
+    height: 50px;
+    width: 50%;
+    position: relative;
+    border: 2px solid #cdcdcd;
+    border-color: rgba(0,0,0,.14);
+    background-color: AliceBlue ;   ;
+    font-size: 14px;
+}
+
+/* the dropdown menus used in 'more categories' and 'write own review' */
+.select {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 15px;
+    width: 50%;
+}    .select select {
+        font-family: 'Arial';
+        display: inline-block;
+        width: 100%;
+        cursor: pointer;
+        padding: 12px 22px;
+        outline: 0;
+        border: 2px solid #000000;
+        border-radius: 18px;
+        background: #F1F1F5;
+        color: #080404;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+    }
+        .select select::-ms-expand {
+            display: none;
+        }
+        .select select:hover,
+        .select select:focus {
+            color: #000000;
+            background: #cce6ff;
+        }
+        .select select:disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+.select_arrow {
+    position: absolute;
+    top: 15px;
+    right: 21px;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    border-style: solid;
+    border-width: 8px 5px 0px 5px;
+    border-color: #7B7B7B transparent transparent transparent;
+}
+.select select:hover ~ .select_arrow,
+.select select:focus ~ .select_arrow {
+    border-top-color: #3929B3;
+}
+.select select:disabled ~ .select_arrow {
+    border-top-color: #CCCCCC;
+}
+
+/* for star ratings in 'write your own review', from https://codepen.io/vanslooten/pen/PGOQar */
+.rating {
+    overflow: hidden;
+    display: inline-block;
+    font-size: 0;
+    position: relative;
+}
+.rating-input {
+    float: right;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    margin: 0 0 0 -16px;
+    opacity: 0;
+}
+.rating:hover .rating-star:hover,
+.rating:hover .rating-star:hover ~ .rating-star,
+.rating-input:checked ~ .rating-star {
+    background-position: 0 0;
+}
+.rating-star,
+.rating:hover .rating-star {
+    position: relative;
+    float: right;
+    display: block;
+    width: 16px;
+    height: 16px;
+    background: url('https://home.et.utwente.nl/slootenvanf/wp-content/plugins/fvs-peer-review/img/star.png') 0 -16px;
+}
+
+/* Submit button, from https://www.w3schools.com/csS/tryit.asp?filename=trycss_buttons_animate3 */
+.review-submit {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 18px;
+  padding: 10px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+.review-submit span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+.review-submit span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+.review-submit:hover span {
+  padding-right: 25px;
+}
+.review-submit:hover span:after {
+  opacity: 1;
+  right: 0;
+}

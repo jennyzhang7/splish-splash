@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>University ratings</title>
+  <link href="/view3.css" rel="stylesheet" type="text/css">
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js">
+  </script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body>
+
+  <!-- go back to previous page -->
+  <form action="/">
+    <input id="back" class="button" type="submit" value="Go back" />
+  </form>
+  <div id=banner>
+
+    <h1>Rate My University</h1>
+  </div>
+
+
+  <div class="thirdcontainer">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <div class="container3">
+          <div class="header">
+            <h1>Ratings and Reviews</h1>
+              <h1><%= uniName %></h1>
+          </div>
+      </div>
+      <!-- Here, we will display 3 rating categories and its star rating;
+      Reviews will appear when clicking on a category -->
+
+      <div class="container3">
+        <div class="categories item">
+          <h3>Courses</h3><!-- this displays all reviews for this uni -->
+          <ul class="courses">
+            <%for(var i=0; i<courses.length; i++) {%>
+              <div>
+              <button id="<%= courses[i].coursecode %>"><%= courses[i].coursecode %></button>
+                <% for(var j=0; j<courseToRating[courses[i].coursecode]; j++) { %>
+                  <span class="fa fa-star checked"></span>
+                <%} %>
+                <% for(var j=0; j< 5 - courseToRating[courses[i].coursecode]; j++) { %>
+                  <span class="fa fa-star"></span>
+                <%} %>
+                </div>
+              <%} %>
+          </ul>
+							<script>
+
+							$(document).ready(function() {
+								var courses = <%-JSON.stringify(courses) %>;
+
+								for (var i = 0; i < courses.length; i++){
+										var thisCourse = courses[i].coursecode;
+
+										var stars = document.createElement('div');
+										$('#' + courses[i].coursecode).append(stars);
+
+										$('#' + thisCourse).on('click', function(){
+											loadReviews(this.id);
+										});
+								}
+							});
+							</script>
+
+							<!-- this allows you to add a new course to the university -->
+							<h4>Don't see a course? Add it.</h4>
+							<form action="/courses" id="addcourse" method="post" name="addcourse">
+								<input name="university" type="hidden" value="<%= uniName %>">
+								<input name="coursecode" placeholder="Course Code" type="text" required="required" pattern="[a-zA-Z0-9]+">
+								<input class="button" type="submit" value="Add Course">
+							</form>
+
+						</div>
+
+
+						<script>
+						function loadReviews(code){
+
+							var reviews = <%-JSON.stringify(reviews) %>;
+							var text = "";
+							$('#reviews').empty();
+							var revCount = 0;
+								for (var r = 0; r < reviews.length; r++){
+
+									if (reviews[r].coursecode === code){
+
+										revCount += 1;
+										var d = document.createElement('div');
+										d.setAttribute("class", "review");
+										var starTextDiv = document.createElement('div');
+										starTextDiv.setAttribute('class', 'star-text');
+
+										var star = document.createElement('div');
+										star.setAttribute('class', "star-bar");
+
+										for (var s=0; s < reviews[r].rating; s++){
+											var checked = document.createElement('span');
+											checked.setAttribute('class', 'fa fa-star checked');
+											star.appendChild(checked);
+											starTextDiv.appendChild(star);
+										}
+										for (var u=0; u < (5 - reviews[r].rating); u++){
+											var unchecked = document.createElement('span');
+											unchecked.setAttribute('class', 'fa fa-star');
+											star.appendChild(unchecked);
+											starTextDiv.appendChild(star);
+										}
+
+										if (typeof(reviews[r].rating) === 'undefined'){
+											for (var u=0; u < 5; u++){
+												var unchecked = document.createElement('span');
+												unchecked.setAttribute('class', 'fa fa-star');
+												star.appendChild(unchecked);
+												starTextDiv.appendChild(star);
+											}
+										}
+										if (reviews[r].user != undefined && reviews[r].user != 'undefined' && reviews[r].user != ''){
+											var username = document.createElement('div');
+											username.setAttribute('class', 'user-txt');
+											var usertxt = document.createTextNode('Review by: ' +reviews[r].user);
+											username.appendChild(usertxt);
+											starTextDiv.appendChild(username);}
+
+										var t = document.createTextNode(reviews[r].review);
+										var textDiv = document.createElement('div', 'reviewTxt');
+										textDiv.setAttribute('class', 'txt');
+										textDiv.append(t);
+										starTextDiv.append(textDiv);
+										d.append(starTextDiv);
+										if ('<%= userName %>' === reviews[r].user && '<%= userName %>' != undefined){
+
+											var container = document.createElement('div');
+											container.setAttribute('id', 'buttonContainer');
+											var editForm = document.createElement('form');
+											var delForm = document.createElement('form');
+											var edit = document.createElement('button');
+											var del = document.createElement('button');
+											edit.setAttribute('id', 'left-button');
+											del.setAttribute('id', 'right-button');
+											var txtEdit = document.createTextNode("Edit");
+											var txtDel = document.createTextNode("Delete");
+											var editInput = document.createElement('input');
+											var delInput = document.createElement('input');
+											editInput.setAttribute('name', 'university');
+											editInput.setAttribute('type', 'hidden');
+											editInput.setAttribute('value', "<%= uniName %>");
+											delInput.setAttribute('name', 'university');
+											delInput.setAttribute('type', 'hidden');
+											delInput.setAttribute('value', "<%= uniName %>");
+											edit.appendChild(txtEdit);
+											del.appendChild(txtDel);
+											editForm.appendChild(edit);
+											editForm.appendChild(editInput);
+											delForm.appendChild(delInput);
+											delForm.appendChild(del);
+											delForm.setAttribute('action', "/university/review/" + reviews[r]._id + "?_method=DELETE");
+											delForm.setAttribute('method', 'post');
+											editForm.setAttribute('action', "/university/" + reviews[r]._id + "/edit");
+											container.append(editForm);
+											container.append(delForm);
+											d.append(container);
+
+										}
+										$('#reviews').append(d);
+									}
+								}
+								if (revCount === 0){
+									var d = document.createElement('div');
+									d.setAttribute("class", "review");
+									var t = "There are currently no reviews for this course. Have you taken it? Add your own!"
+									d.append(t);
+									$('#reviews').append(d);
+								}
+						}
+
+						</script>
+
+
+          <div class="moreCategories item">
+              <h3> Reviews </h3>
+              <div id="reviews">
+                <p> Select a course to see what other students think of it! <p>
+              </div>
+          </div>
+      </div>
+
+      <div class="container3">
+        <div class="addReview">
+          <h3>Write your own review.</h3><!-- this displays form to review a course. Anything in <% %> is template engine stuff. 'courses' refers to variable passed in app.get('/university/:uniName' (in server.js) -->
+          <form action="/reviews" id="select" method="post" name="select">
+            <div class="select">
+              <select class="coursecode" data-style="btn-info" name="coursecode">
+                <optgroup label="course code">
+                  <%for(var i=0; i<courses.length; i++) {%>
+                  <option value="<%=courses[i].coursecode %>">
+                    <%= courses[i].coursecode %>
+                  </option><%} %>
+                </optgroup>
+              </select>
+            </div>
+             <span class="rating">
+               <input class="rating-input" id="rating-input-1-5" name="rating" type="radio" value=5>
+                <label class="rating-star" for="rating-input-1-5"></label>
+                <input class="rating-input" id="rating-input-1-4" name="rating" type="radio" value=4>
+                <label class="rating-star" for="rating-input-1-4"></label>
+                <input class="rating-input" id="rating-input-1-3" name="rating" type="radio" value=3>
+                <label class="rating-star" for="rating-input-1-3"></label>
+                <input class="rating-input" id="rating-input-1-2" name="rating" type="radio" value=2>
+                <label class="rating-star" for="rating-input-1-2"></label>
+                <input class="rating-input" id="rating-input-1-1" name="rating" type="radio" value=1>
+                <label class="rating-star" for="rating-input-1-1"></label></span>
+
+            <input name="university" type="hidden" value="<%= uniName %>"><br>
+						<input type="hidden" id="user" type="text" name="user" value="<%= userName %>">
+
+            <textarea class="textbox" name="review" placeholder="Write your review."></textarea>
+            <br>
+            <input class="button" type="submit" value="Submit">
+
+          </form>
+
+        </div>
+
+        <script>
+               $('.review-submit').on('click', function() {
+                   alert("Will be able to submit in A3");
+               })
+        </script>
+      </div>
+  </div>
+  <script>
+
+        var ajaxFunc = function(){
+
+            $.ajax({
+                url: 'https://dry-cliffs-90706.herokuapp.com/api/messages',
+                method: "GET",
+                datatype : "application/json",
+                success: function (data) {
+                    $.each(data, function(i, message) {
+                        if(message.read == "false"){
+                            swal(message.data)
+                            $.ajax({
+                                url: 'https://dry-cliffs-90706.herokuapp.com/api/messages',
+                                type: "POST",
+                                contentType: 'application/json',
+                                data: JSON.stringify({"_id": message._id, "data": message.data, "read": "true"}),
+                                success: function(data) {
+                                    console.log('success');
+                                }
+                            })
+                        }
+                    })
+                }
+            });
+        }
+        setInterval(ajaxFunc, 2000);
+      </script>
+
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Rate My Uni</title>
+		<meta name="author" content="JZ">
+		<link rel="stylesheet" type="text/css" href="view1.css" />
+		<script
+			src="https://code.jquery.com/jquery-3.2.1.min.js"
+			integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+			crossorigin="anonymous"></script>
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	</head>
+	<body>
+		<div id="credoverlay" class="credover">
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			<div class="credinfo">
+				<form id="signupFrom" action="/login" method="post">
+					<input type="text" placeholder="username" name="username" required="required" pattern="[a-zA-Z0-9_@./#&+-]+">
+					<input type="password" placeholder="password" name="password" required="required" pattern="[a-zA-Z0-9_@./#&+-]+">
+					<br>
+					<br>
+					<input type="submit" value="Login" />
+				</form>
+			</div>
+		</div>
+		<div id="registerForm" class="credover">
+			<a href="javascript:void(0)" class="closebtn" onclick="closeRegister()">&times;</a>
+			<div class="credinfo">
+				<form id="signupFrom" action="/signup" method="post">
+					<input type="text" placeholder="username" name="username" required="required" pattern="[a-zA-Z0-9_@./#&+-]+">
+					<input type="password" placeholder="password" name="password" required="required" pattern="[a-zA-Z0-9_@./#&+-]+">
+					<br>
+					<br>
+					<input type="submit" value="Register" />
+				</form>
+			</div>
+		</div>
+		<script>
+			function openNav() {
+			    document.getElementById("credoverlay").style.height = "100%";
+			}
+			function closeNav() {
+			    document.getElementById("credoverlay").style.height = "0%";
+			}
+
+			function openRegister() {
+			    document.getElementById("registerForm").style.height = "100%";
+			}
+			function closeRegister() {
+			    document.getElementById("registerForm").style.height = "0%";
+			}
+		</script>
+		<% if (loggedIn == true) {%>
+
+			<div id=banner>
+				<form id="logout" action="/logout" method="post">
+					<input type="submit" value="Logout" style="border-radius: 18px;border: none;box-shadow: none;font-family: inherit;font-size: 36px!important; background: rgba(255, 255, 255, 0.1); color:whitesmoke;height: 6vh;" />
+				</form>
+				<h1>Hello <%= userName %></h1>
+
+			</div>
+		<% } else { %>
+			<div id=banner>
+				<button id="cred"  type='button' onclick="openNav()"> Login </button>
+				<button id="signupButton"  type='button' onclick="openRegister()">Register </button>
+				<h1>Rate My University</h1>
+			</div>
+		<% } %>
+		<div class="container">
+			<div style="margin: auto; text-align: center;">
+				<img class="logo"
+					src="https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Utoronto_coa.svg/1024px-Utoronto_coa.svg.png">
+				<p>
+					Higher Education for A Higher Mind.
+				</p>
+			</div>
+			<div class=center>
+				<label class="center" style="font-size:1.2em">Country of University:
+				<input name="Country Name" id="country" style="font-size:1.2em" list="unis"/></label>
+				<datalist id="unis"></datalist>
+			</div>
+			<div id="searchcenter">
+				<div id='lookupname' style="display:none; margin: 1vh">
+					<input type="text" class=center id="unifilter" style="font-size:1.5em" onkeyup="namelookup()"
+						placeholder="Search for a University..." title="Type Name">
+				</div>
+				<div class="dropdown">
+					<button onclick="uniselect()" id="getlist" class="dropbtn">Get Universities</button>
+				</div>
+			</div>
+			<ul id="conlist" class="dropdown-content">
+			</ul>
+			<script type="text/javascript">
+				var currentunis = ["Canada", "United States"];
+
+				var unilist = '';
+
+				for (var i = 0; i < currentunis.length; i++)
+				    unilist += '<option value="' + currentunis[i] + '">';
+
+				document.getElementById('unis').innerHTML = unilist;
+			</script>
+			<script>
+				/*toggle dropdown content on click */
+
+				function uniselect() {
+				    document.getElementById("getlist").innerHTML = "Universities in " + document.getElementById("country").value;
+				    var requrl = '/universities/' + document.getElementById("country").value;
+				    //var requrl = 'https://cors-anywhere.herokuapp.com/' + 'http://universities.hipolabs.com/search?country=' + document.getElementById("country").value;
+					document.getElementById("conlist").innerHTML = "";
+				    jQuery('#lookupname').toggle('show');
+				    $.ajax({
+				        type: 'GET',
+				        url: requrl,
+				        success: function (data) {
+
+				            $.each(JSON.parse(data), function (i, uni) {
+				            	var newButton = '<li><a href="javascript:;" data-theme="b" data-role="button" style="border: 3px solid #00204E; border-radius: 36px; background: rgba(255, 255, 255, 0.1);" id="' + uni.web_pages[0] + '" class=center >' + uni.name + '</a></li>';
+				                $('#conlist').append(newButton);
+				            })
+				        }
+				    });
+				    /* sends the user to the second view page after clicking on a university name */
+				    $(document).on("click", "a.center", function(){
+				    	 window.location.href='university/'+ $(this).text();
+
+				    });
+				}
+
+				/* university filter */
+				function namelookup() {
+				    var input, filter, ul, li, a, i;
+				    input = document.getElementById("unifilter");
+				    filter = input.value.toUpperCase();
+				    ul = document.getElementById("conlist");
+				    li = ul.getElementsByTagName("li");
+				    for (i = 0; i < li.length; i++) {
+				        a = li[i].getElementsByTagName("a")[0];
+				        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+				            li[i].style.display = "";
+				        } else {
+				            li[i].style.display = "none";
+
+				        }
+				    }
+				}
+
+			</script>
+			<script>
+				var ajaxFunc = function(){
+
+				    $.ajax({
+				        url: 'https://dry-cliffs-90706.herokuapp.com/api/messages',
+				        method: "GET",
+				        datatype : "application/json",
+				        success: function (data) {
+				            $.each(data, function(i, message) {
+				                if(message.read == "false"){
+				                    swal(message.data)
+				                    $.ajax({
+				                        url: 'https://dry-cliffs-90706.herokuapp.com/api/messages',
+				                        type: "POST",
+				                        contentType: 'application/json',
+				                        data: JSON.stringify({"_id": message._id, "data": message.data, "read": "true"}),
+				                        success: function(data) {
+				                            console.log('success');
+				                        }
+				                    })
+				                }
+				            })
+				        }
+				    });
+				}
+				setInterval(ajaxFunc, 2000);
+			</script>
+		</div>
+	</body>
+</html>

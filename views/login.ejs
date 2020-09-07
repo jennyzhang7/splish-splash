@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous">
+    </script>
+</head>
+<body>
+  <!-- go back to previous page -->
+  <form action="/">
+    <input type="submit" value="Go back to home page" />
+  </form>
+  
+  <!-- takes in user info to sign up for an account -->
+  <h2>Login form, for existing users</h2>
+  <form id="signupFrom" action="/login" method="post">
+    <input type="text" placeholder="username" name="username">
+    <input type="password" placeholder="password" name="password">
+    <input type="submit" value="Submit" />
+  </form>
+
+</body>
+</html>

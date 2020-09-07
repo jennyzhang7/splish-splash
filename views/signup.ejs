@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign up!</title>
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous">
+    </script>
+</head>
+<body>
+  <!-- go back to previous page -->
+  <form action="/">
+    <input type="submit" value="Go back to home page" />
+  </form>
+  
+  <!-- takes in user info to sign up for an account -->
+  <h2>Sign up form, for new users</h2>
+  <form id="signupFrom" action="/signup" method="post">
+
+    <input type="text" placeholder="username" name="username">
+    <input type="password" placeholder="password" name="password">
+    <input type="submit" value="Submit" />
+  </form>
+  <script>
+    var ajaxFunc = function(){
+
+        $.ajax({
+            url: 'http://localhost:3000/api/messages',
+            method: "GET",
+            datatype : "application/json",
+            success: function (data) {
+                $.each(data, function(i, message) {
+                    if(message.read == "false"){
+                        alert(message.data)
+                        $.ajax({
+                            url: 'http://localhost:3000/api/messages',
+                            type: "POST",
+                            contentType: 'application/json',
+                            data: JSON.stringify({"_id": message._id, "data": message.data, "read": "true"}),
+                            success: function(data) {
+                                console.log('success');
+                            }
+                        })
+                    }
+                })
+            }
+        });
+    }
+    setInterval(ajaxFunc, 2000); 
+    </script>
+
+</body>
+</html>

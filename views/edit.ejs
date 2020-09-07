@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" type="text/css" href="view4.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <style type="text/css">
+    #banner {
+        background: midnightblue;
+        /* For browsers that do not support gradients */
+
+        background: -webkit-linear-gradient(#00204E, #000428);
+        /* For Safari 5.1 to 6.0 */
+
+        background: -o-linear-gradient(#00204E, #000428);
+        /* For Opera 11.1 to 12.0 */
+
+        background: -moz-linear-gradient(#00204E, #000428);
+        /* For Firefox 3.6 to 15 */
+
+        background: linear-gradient(#00204E, #000428);
+        /* Standard syntax (must be last) */
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: whitesmoke;
+        height: 6vh;
+        font-size: 1.2em;
+        position: relative;
+    }
+
+    form #back{
+      align: left;
+      font-size: 1.3em;
+      position:absolute;
+      z-index: 100;
+      height:6vh;
+      padding:0;
+      margin:0;
+    }
+
+    .button {
+      
+      background-color: #242f96;
+      border: none;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      width: 120px;
+      height: 40px;
+    }
+
+
+    #container {
+        margin: 5% 10%;
+        padding:5%;
+        background-color: whitesmoke;
+        height: 90vh;
+    }
+
+    #container h2 {
+      font-size: 3em;
+      font-weight: bold;
+    }
+
+    #edit-form {
+      margin-left: 5%;
+    }
+    #edit-rating {
+      width: 20%;
+      height: 8vh;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- go back to previous page -->
+  <form action="/">
+    <input id="back" class="button" type="submit" value="Go back" />
+  </form>
+  <div id=banner>
+
+    <h1>Rate My University</h1>
+  </div>
+
+  <div id='container'>
+    <h2>Edit Your Review</h2>
+
+    <form id='edit-form' class="form" action="/reviews/<%= review[0]._id%>?_method=PUT" method="post">
+      <label for="name">Course Code</label> <%= review[0].coursecode %>
+      <input type="hidden" id="coursecode" type="text" name="coursecode" value="<%= review[0].coursecode %>">
+      <br>
+      <label for="name">University</label> <%= review[0].university %>
+      <input type="hidden" id="university" type="text" name="university" value="<%= review[0].university %>">
+      <br>
+      <label for="review">Review</label>
+      <input id="review" type="text" name="review" value="<%= review[0].review %>">
+      <br>
+      <input type="hidden" id="user" type="text" name="user" value="<%= review[0].user %>">
+
+      <select id='edit-rating' class="rating" data-style="btn-info" name="rating">
+          <optgroup label="I would rate this course">
+            <% for(var i = 1; i <= 5; i++) {%>
+              <% if (i == review[0].rating ) { %>
+                <option value="<%= i %>" selected="selected"> <%= i %> </option>
+              <% } else {%>
+                <option value="<%= i %>"> <%= i %> </option>
+              <% } %>
+            <% } %>
+        </optgroup>
+    </select>
+    <br>
+    <input type="submit" value="Submit" class="button btn btn-default">
+  </form>
+  <script>
+        var ajaxFunc = function(){
+
+            $.ajax({
+                url: 'https://dry-cliffs-90706.herokuapp.com/api/messages',
+                method: "GET",
+                datatype : "application/json",
+                success: function (data) {
+                    $.each(data, function(i, message) {
+                        if(message.read == "false"){
+                            swal(message.data)
+                            $.ajax({
+                                url: 'https://dry-cliffs-90706.herokuapp.com/api/messages',
+                                type: "POST",
+                                contentType: 'application/json',
+                                data: JSON.stringify({"_id": message._id, "data": message.data, "read": "true"}),
+                                success: function(data) {
+                                    console.log('success');
+                                }
+                            })
+                        }
+                    })
+                }
+            });
+        }
+        setInterval(ajaxFunc, 2000);
+      </script>
+</body>
+</html>

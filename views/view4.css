@@ -1,0 +1,74 @@
+body {
+    margin: 0;
+}
+
+#banner {
+    background: midnightblue;
+    /* For browsers that do not support gradients */
+
+    background: -webkit-linear-gradient(#00204E, #000428);
+    /* For Safari 5.1 to 6.0 */
+
+    background: -o-linear-gradient(#00204E, #000428);
+    /* For Opera 11.1 to 12.0 */
+
+    background: -moz-linear-gradient(#00204E, #000428);
+    /* For Firefox 3.6 to 15 */
+
+    background: linear-gradient(#00204E, #000428);
+    /* Standard syntax (must be last) */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: whitesmoke;
+    height: 6vh;
+    font-size: 1.2em;
+    position: relative;
+}
+
+form #back{
+  align: left;
+  font-size: 1.3em;
+  position:absolute;
+  z-index: 100;
+  height:6vh;
+  padding:0;
+  margin:0;
+}
+
+.button {
+  
+  background-color: #242f96;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  width: 120px;
+  height: 40px;
+}
+
+
+#container {
+    margin: 5% 10%;
+    padding:5%;
+    background-color: whitesmoke;
+    height: 90vh;
+}
+
+#container h2 {
+  font-size: 3em;
+  font-weight: bold;
+}
+
+#edit-form {
+  margin-left: 5%;
+}
+#edit-rating {
+  width: 20%;
+  height: 8vh;
+}

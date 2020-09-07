@@ -1,0 +1,217 @@
+		body {
+		    margin: 0px;
+		}
+		html *:not(.fa) {
+		    font-family: Helvetica, arial, serif !important;
+		}
+		.container {
+		    background-color: whitesmoke;
+		    min-height: 92vh;
+		    font-size: 1.2em;
+		}
+		.secondcontainer {
+		    display: none;
+		}
+		.thirdcontainer {
+		    display: none;
+		}
+		#searchcenter {
+		    margin-left: auto;
+		    margin-right: auto;
+		    text-align: center
+		}
+		ul {
+		    margin: 0;
+		    padding: 0;
+		    text-align: center;
+		    list-style: none;
+		}
+		ul li {
+		    padding: 2px 5px;
+		}
+		img.logo {
+		    margin-top: 5vh;
+		    max-width: 25vh;
+		    max-height: 25vh;
+		}
+		div.center {
+		    height: 10em;
+		    display: flex;
+		    align-items: center;
+		    justify-content: center
+		}
+		div.center p {
+		    margin: 0;
+		    font-size: 1.5em;
+		}
+		.dropbtn {
+		    border-radius: 18px;
+		    background-color: #00204E;
+		    color: white;
+		    padding: 16px;
+		    font-size: 1.2em;
+		    border: none;
+		    cursor: pointer;
+		    display: flex;
+		    align-items: center;
+		    justify-content: center
+		}
+		.dropdown {
+		    position: relative;
+		    display: flex;
+		    align-items: center;
+		    justify-content: center
+		}
+		.dropdown-content {
+		    display: block;
+		    min-width: 180px;
+		    overflow: auto;
+		    z-index: 1;
+		}
+		.dropdown-content a {
+		    color: black;
+		    padding: 12px 16px;
+		    text-decoration: none;
+		    display: block;
+		}
+		.dropdown a:hover {} .show {
+		    display: block;
+		}
+		#banner {
+		    background: midnightblue;
+		    /* For browsers that do not support gradients */
+
+		    background: -webkit-linear-gradient(#00204E, #000428);
+		    /* For Safari 5.1 to 6.0 */
+
+		    background: -o-linear-gradient(#00204E, #000428);
+		    /* For Opera 11.1 to 12.0 */
+
+		    background: -moz-linear-gradient(#00204E, #000428);
+		    /* For Firefox 3.6 to 15 */
+
+		    background: linear-gradient(#00204E, #000428);
+		    /* Standard syntax (must be last) */
+
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+		    color: whitesmoke;
+		    height: 6vh;
+		    font-size: 1.2em;
+		    position: relative;
+		}
+		#home {
+		    color: white;
+		    font-size: 1.2em;
+		    position: absolute;
+		    top: 0;
+		    right: 0;
+		    height: 6vh;
+		    border: None;
+		    background: rgba(255, 255, 255, 0.1);
+		}
+		#cred {
+		    color: white;
+		    font-size: 1.2em;
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    height: 6vh;
+		    border: None;
+		    background: rgba(255, 255, 255, 0.1);
+		}
+		#logout {
+			color: white;
+			font-size: 1.8em;
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 6vh;
+			background: rgba(255, 255, 255, 0.1);
+		}
+		#signupButton {
+		    color: white;
+		    font-size: 1.2em;
+		    position: absolute;
+		    top: 0;
+		    left: 13vh;
+		    height: 6vh;
+		    border: None;
+		    background: rgba(255, 255, 255, 0.1);
+		}
+		#signupButton {
+		    color: white;
+		    font-size: 1.2em;
+		    position: absolute;
+		    top: 0;
+		    left: 13vh;
+		    height: 6vh;
+		    border: None;
+		    background: rgba(255, 255, 255, 0.1);
+		}
+		.credover {
+		    height: 0%;
+		    width: 100%;
+		    position: fixed;
+		    z-index: 1;
+		    top: 0;
+		    left: 0;
+		    background-color: rgb(0, 0, 0);
+		    background-color: rgba(0, 0, 0, 0.9);
+		    overflow-y: hidden;
+		    transition: 0.5s;
+		}
+		.credinfo {
+		    position: relative;
+		    top: 25%;
+		    width: 100%;
+		    text-align: center;
+		    margin-top: 30px;
+		}
+		.credover a {
+		    padding: 8px;
+		    text-decoration: none;
+		    font-size: 36px;
+		    color: #818181;
+		    display: block;
+		    transition: 0.3s;
+		}
+		.credover a:hover,
+		.credover a:focus {
+		    color: #f1f1f1;
+		}
+		.credover .closebtn {
+		    position: absolute;
+		    top: 20px;
+		    right: 45px;
+		    font-size: 60px;
+		}
+		.login {
+		    border-radius: 18px;
+		    background-color: #00204E;
+		    color: white;
+		    padding: 16px;
+		    font-size: 1.2em;
+		    border: none;
+		    cursor: pointer;
+		    width: 10%;
+		    margin: 2%;
+		}
+		.logincomment {
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+		}
+		@media screen and (max-height: 450px) {
+		    .credover {
+		        overflow-y: auto;
+		    }
+		    .credover a {
+		        font-size: 20px
+		    }
+		    .credover .closebtn {
+		        font-size: 40px;
+		        top: 15px;
+		        right: 35px;
+		    }

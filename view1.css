@@ -1,0 +1,121 @@
+		body {
+            margin: 0px;
+        }
+
+        .container {
+            background: #1CE; /* For browsers that do not support gradients */
+            background: -webkit-linear-gradient(#1CE, royalblue); /* For Safari 5.1 to 6.0 */
+            background: -o-linear-gradient(#1CE, royalblue); /* For Opera 11.1 to 12.0 */
+            background: -moz-linear-gradient(#1CE, royalblue); /* For Firefox 3.6 to 15 */
+            background: linear-gradient(#1CE, royalblue); /* Standard syntax (must be last) */
+            min-height: 94vh;
+            font-size: 1.2em;
+        }
+        
+        .secondcontainer {
+        	display: none;
+        }
+		
+		.thirdcontainer {
+			display: none;
+		}
+        #searchcenter {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            list-style: none;
+        }
+
+        ul li {
+            padding: 2px 5px;
+        }
+
+        #banner {
+            background: midnightblue; /* For browsers that do not support gradients */
+            background: -webkit-linear-gradient(#00204E, #000428); /* For Safari 5.1 to 6.0 */
+            background: -o-linear-gradient(#00204E, #000428); /* For Opera 11.1 to 12.0 */
+            background: -moz-linear-gradient(#00204E, #000428); /* For Firefox 3.6 to 15 */
+            background: linear-gradient(#00204E, #000428); /* Standard syntax (must be last) */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: whitesmoke;
+            height: 6vh;
+            font-size: 1.2em;
+            position: relative;
+
+        }
+        
+        #home {
+        	color: white;
+        	font-size: 1.2em;
+        	position: absolute;
+        	top: 0;
+        	right: 0;
+        	border: None;
+        	background: rgba(255, 255, 255, 0.1);
+        }
+
+        img.logo {
+            max-width: 25vh;
+            max-height: 25vh;
+        }
+
+        div.center {
+            height: 10em;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        div.center p {
+            margin: 0
+	    style="font-size:1.5em"
+        }
+
+        .dropbtn {
+            border-radius: 18px;
+            background-color: #00204E;
+            color: white;
+            padding: 16px;
+            font-size: 1.2em;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .dropdown {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .dropdown-content {
+            display: block;
+            min-width: 180px;
+            overflow: auto;
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown a:hover {
+        }
+
+        .show {
+            display: block;
+        }
